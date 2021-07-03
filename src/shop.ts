@@ -63,23 +63,25 @@ export class Shops {
       .subscribe((shops) => this.showShops(shops));
   }
 
-  showShop(shop: Shop) {
+  showShop(shop: Shop, shopContainer: HTMLElement) {
     if (!shop) return;
     const div = document.createElement("div");
     div.innerHTML = `${shop.id}, ${shop.name}, ${shop.location}, ${shop.number_of_employees}`;
     div.className = "Shop";
-    document.body.appendChild(div);
+    shopContainer.appendChild(div);
   }
 
   showShops(shops: Shop[]) {
     if (!shops) return;
-    Array.from(document.getElementsByClassName("Shop")).forEach(function (
+    Array.from(document.getElementsByClassName("ShopContainer")).forEach(function (
       item
     ) {
       document.body.removeChild(item);
     });
+    const shopContainer = document.createElement("div");
+    shopContainer.className="ShopContainer";
     shops.forEach((shop) => {
-      this.showShop(shop);
+      this.showShop(shop, shopContainer);
     });
   }
 }
