@@ -6,7 +6,6 @@ import { Order } from "./order";
 const API_URL = "http://localhost:3000";
 
 export class AdClass{
-    order = new Order();
     typesOfAd = ["Sendvic", "Pica", "Gurmanska Pljeskavica", "Pasta"];
     getFoodObservableById(id: number): Observable<Ad>{
         return from(
@@ -28,7 +27,7 @@ export class AdClass{
               .catch((er) => console.log(er))
           );
     }
-    createFoodCheckElement(host: HTMLElement){
+    createFoodCheckElement(host: HTMLElement, order: Order){
         let option = null;
         let div = document.createElement("div");
         let divRb = document.createElement("select");
@@ -51,6 +50,6 @@ export class AdClass{
             map((ev: Event) => (<HTMLSelectElement>ev.target).value),
             switchMap((type) => this.getFoodObservableByType(type))
         )
-        .subscribe((ad) => this.order.setAdOrder(ad));
+        .subscribe((ad) => order.setAdOrder(ad));
     }
 }
