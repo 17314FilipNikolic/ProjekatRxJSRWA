@@ -5,30 +5,24 @@ import { Food } from "./models/food";
 import { FoodCl } from "./classes/food";
 
 export class Order{
-    food: FoodCl;
+    food: Food;
     ads: Ad[] = [];
     priceFood: number;
     priceAd: number;
     price: number;
     reducer = (acc: number, value: number) => acc + value; 
-    setFoodOrder(newfood: Food){
-        this.food = new FoodCl(newfood.id, newfood.type, newfood.price, newfood.content);
+    setFoodOrder(food: Food){
+        this.food = food;
         this.setPrice();
+        //console.log(id, type, price, content);
     }
     setAdOrder(ad: Ad){
         this.ads.push(ad);
-        this.ads[this.ads.length - 1].id = ad.id;
-        this.ads[this.ads.length - 1].price = ad.price;
-        this.ads[this.ads.length - 1].type = ad.type;
         this.setPrice();
     }
     setPrice(){
         this.priceFood = this.food.price ?? 0;
-        this.ads ? of(...this.ads).pipe(
-            map((ad) => ad.price),
-            reduce((acc, val) => acc + val)
-        )
-        .subscribe((val) => this.priceAd = val)
+        this.ads.length > 0 ? this.ads.forEach((ad) => this.priceAd = Number.parseInt(this.priceAd.toString()) + Number.parseInt(ad.price.toString()))
         : this.priceAd = 0;
     }
     showOrder(host: HTMLElement){
@@ -61,20 +55,20 @@ export class Order{
         foodprice.className = "Food";
         container.appendChild(foodprice);
 
-        this.ads?.forEach((ad) => {
+        this.ads.length > 0 && this.ads.forEach((ad) => {
             const adtype = document.createElement("label");
-            adtype.innerHTML = `Tip dodatka: ${ad?.type}`;
+            adtype.innerHTML = `Tip dodatka: ${ad.type}`;
             adtype.className = "Ad";
             container.appendChild(adtype);
 
             const adprice = document.createElement("label");
-            adprice.innerHTML = `Cena dodatka: ${ad?.price}`;
+            adprice.innerHTML = `Cena dodatka: ${ad.price}`;
             adprice.className = "Ad";
             container.appendChild(adprice);
         });
 
         const price = document.createElement("label");
-        price.innerHTML = `Cena poruzdbine je: ${this.priceFood + this.priceAd}`;
+        price.innerHTML = `Cena poruzdbine je: ${Number.parseInt(this.priceAd.toString()) + Number.parseInt(this.priceFood.toString())}`;
         price.className = "Price";
         container.appendChild(price);
 
@@ -89,5 +83,6 @@ export class Order{
     clearOrder(){
         this.food = null;
         this.ads = [];
+        this.priceAd = this.priceFood = 0;
     }
 }

@@ -1,5 +1,6 @@
 import { from, fromEvent, Observable } from "rxjs";
-import { debounceTime, map, switchMap } from "rxjs/operators";
+import { debounceTime, filter, map, switchMap } from "rxjs/operators";
+import { FoodCl } from "./classes/food";
 import { Food }  from "./models/food";
 import { Order } from "./order";
 
@@ -17,7 +18,7 @@ export class FoodClass{
               .catch((er) => console.log(er))
           );
     }
-    getFoodObservableByType(type: String): Observable<Food>{
+    getFoodObservableByType(type: String): Observable<Food[]>{
         return from(
             fetch(`${API_URL}/food/?type=${type}`)
               .then((response) => {
@@ -49,11 +50,15 @@ export class FoodClass{
         .pipe(
             debounceTime(1000),
             map((ev: Event) => (<HTMLInputElement>ev.target).value),
-            switchMap((type) => this.getFoodObservableByType(type))
+            filter((text) => text.length > 3),
+            switchMap((type) => this.getFoodObservableByType(type)),
+            map((food) => food[0])
         )
         .subscribe((food) => {
             order.setFoodOrder(food);
             order.showOrder(host);
+            console.log(food);
+            console.log(food.id, food.type, food.price, food.content);
         });
     }
 }

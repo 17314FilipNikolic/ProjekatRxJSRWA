@@ -1,5 +1,5 @@
 import { from, fromEvent, Observable } from "rxjs";
-import { debounceTime, map, switchMap } from "rxjs/operators";
+import { debounceTime, map, switchMap, filter } from "rxjs/operators";
 import { Ad }  from "./models/ad";
 import { Order } from "./order";
 
@@ -17,7 +17,7 @@ export class AdClass{
               .catch((er) => console.log(er))
           );
     }
-    getAdObservableByType(type: String): Observable<Ad>{
+    getAdObservableByType(type: String): Observable<Ad[]>{
         return from(
             fetch(`${API_URL}/ad/?type=${type}`)
               .then((response) => {
@@ -49,7 +49,9 @@ export class AdClass{
         .pipe(
             debounceTime(1000),
             map((ev: Event) => (<HTMLInputElement>ev.target).value),
-            switchMap((type) => this.getAdObservableByType(type))
+            filter((text) => text.length > 3),
+            switchMap((type) => this.getAdObservableByType(type)),
+            map((ads) => ads[0])
         )
         .subscribe((ad) => {
             order.setAdOrder(ad);
