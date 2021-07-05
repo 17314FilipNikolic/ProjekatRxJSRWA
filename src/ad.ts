@@ -6,8 +6,8 @@ import { Order } from "./order";
 const API_URL = "http://localhost:3000";
 
 export class AdClass{
-    typesOfAd = ["Sendvic", "Pica", "Gurmanska Pljeskavica", "Pasta"];
-    getFoodObservableById(id: number): Observable<Ad>{
+    typesOfAd = ["kecap", "majonez", "aleva paprika", "urnebes"];
+    getAdObservableById(id: number): Observable<Ad>{
         return from(
             fetch(`${API_URL}/ad/${id}`)
               .then((response) => {
@@ -17,7 +17,7 @@ export class AdClass{
               .catch((er) => console.log(er))
           );
     }
-    getFoodObservableByType(type: String): Observable<Ad>{
+    getAdObservableByType(type: String): Observable<Ad>{
         return from(
             fetch(`${API_URL}/ad/?type=${type}`)
               .then((response) => {
@@ -27,29 +27,33 @@ export class AdClass{
               .catch((er) => console.log(er))
           );
     }
-    createFoodCheckElement(host: HTMLElement, order: Order){
+    createAdCheckElement(host: HTMLElement, order: Order){
         let option = null;
         let div = document.createElement("div");
-        let divRb = document.createElement("select");
         const label = document.createElement("label");
-        label.innerHTML = "Tip hrane ";
-        divRb.appendChild(label);
-        div.appendChild(divRb);
+        label.innerHTML = "Tip dodatka";
+        div.appendChild(label);
 
         for (let i = 0; i < this.typesOfAd.length; i++) {
-            option = document.createElement("option");
+            option = document.createElement("label");
             option.innerHTML = `${this.typesOfAd[i]}`;
-            option.value = `${this.typesOfAd[i]}`;
-            divRb.appendChild(option);
+            option.className = "Type";
+            div.appendChild(option);
         }
         host.appendChild(div);
 
-        fromEvent(divRb, "onselect")
+        const input = document.createElement("input");
+        host.appendChild(input);
+
+        fromEvent(input, "input")
         .pipe(
             debounceTime(1000),
-            map((ev: Event) => (<HTMLSelectElement>ev.target).value),
-            switchMap((type) => this.getFoodObservableByType(type))
+            map((ev: Event) => (<HTMLInputElement>ev.target).value),
+            switchMap((type) => this.getAdObservableByType(type))
         )
-        .subscribe((ad) => order.setAdOrder(ad));
+        .subscribe((ad) => {
+            order.setAdOrder(ad);
+            order.showOrder(host);
+        });
     }
 }

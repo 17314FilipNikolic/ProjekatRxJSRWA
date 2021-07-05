@@ -30,26 +30,30 @@ export class FoodClass{
     createFoodCheckElement(host: HTMLElement, order: Order){
         let option = null;
         let div = document.createElement("div");
-        let divRb = document.createElement("select");
         const label = document.createElement("label");
-        label.innerHTML = "Tip hrane ";
-        divRb.appendChild(label);
-        div.appendChild(divRb);
+        label.innerHTML = "Tip hrane";
+        div.appendChild(label);
 
         for (let i = 0; i < this.typesOfFood.length; i++) {
-            option = document.createElement("option");
+            option = document.createElement("label");
             option.innerHTML = `${this.typesOfFood[i]}`;
-            option.value = `${this.typesOfFood[i]}`;
-            divRb.appendChild(option);
+            option.className = "Type";
+            div.appendChild(option);
         }
         host.appendChild(div);
 
-        fromEvent(divRb, "onselect")
+        const input = document.createElement("input");
+        host.appendChild(input);
+
+        fromEvent(input, "input")
         .pipe(
             debounceTime(1000),
-            map((ev: Event) => (<HTMLSelectElement>ev.target).value),
+            map((ev: Event) => (<HTMLInputElement>ev.target).value),
             switchMap((type) => this.getFoodObservableByType(type))
         )
-        .subscribe((food) => order.setFoodOrder(food));
+        .subscribe((food) => {
+            order.setFoodOrder(food);
+            order.showOrder(host);
+        });
     }
 }
