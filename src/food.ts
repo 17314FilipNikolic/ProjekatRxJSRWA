@@ -30,20 +30,24 @@ export class FoodClass{
     createFoodCheckElement(host: HTMLElement, order: Order){
         let option = null;
         let div = document.createElement("div");
-        const label = document.createElement("label");
-        label.innerHTML = "Tip hrane";
+        div.className = "FoodContainer";
+        const label = document.createElement("div");
+        label.innerHTML = "Tip hrane:";
+        label.className = "FoodTyp";
         div.appendChild(label);
 
         for (let i = 0; i < this.typesOfFood.length; i++) {
-            option = document.createElement("label");
-            option.innerHTML = `${this.typesOfFood[i]}`;
-            option.className = "Type";
+            option = document.createElement("div");
+            option.innerHTML = `${i+1}: ${this.typesOfFood[i]}`;
+            option.className = "FoodType";
             div.appendChild(option);
         }
-        host.appendChild(div);
 
         const input = document.createElement("input");
-        host.appendChild(input);
+        input.className = "FoodInput";
+        div.appendChild(input);
+
+        host.appendChild(div);
 
         fromEvent(input, "input")
         .pipe(

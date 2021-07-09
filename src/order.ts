@@ -31,39 +31,39 @@ export class Order{
         container.className = "Order";
         host.appendChild(container);
 
-        const title = document.createElement("label");
+        const title = document.createElement("div");
         title.innerHTML = "Vasa narudzbina je:";
         title.className = "Title";
         container.appendChild(title);
 
-        const foodtype = document.createElement("label");
+        const foodtype = document.createElement("div");
         foodtype.innerHTML = `${this.food.type ? this.food.type : ""}`;
         foodtype.className = "Food";
         container.appendChild(foodtype);
 
         const foodcontent = document.createElement("label");
         foodcontent.innerHTML = `Sadrzaj: ${this.food.content && this.food.content}`;
-        foodcontent.className = "Food";
+        foodcontent.className = "FoodContent";
         container.appendChild(foodcontent);
 
-        const foodprice = document.createElement("label");
-        foodprice.innerHTML = `Cena: ${this.food?.price}`;
-        foodprice.className = "Food";
+        const foodprice = document.createElement("div");
+        foodprice.innerHTML = `Cena hrane: ${this.food?.price}`;
+        foodprice.className = "FoodPrice";
         container.appendChild(foodprice);
 
         this.ads.length > 0 && this.ads.forEach((ad) => {
-            const adtype = document.createElement("label");
+            const adtype = document.createElement("div");
             adtype.innerHTML = `Tip dodatka: ${ad.type}`;
             adtype.className = "Ad";
             container.appendChild(adtype);
 
-            const adprice = document.createElement("label");
+            const adprice = document.createElement("div");
             adprice.innerHTML = `Cena dodatka: ${ad.price}`;
-            adprice.className = "Ad";
+            adprice.className = "AdPrice";
             container.appendChild(adprice);
         });
 
-        const price = document.createElement("label");
+        const price = document.createElement("div");
         price.innerHTML = `Cena poruzdbine je: ${Number.parseInt(this.priceAd.toString()) + Number.parseInt(this.priceFood.toString())}`;
         price.className = "Price";
         container.appendChild(price);

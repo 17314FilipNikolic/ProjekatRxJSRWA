@@ -7,3 +7,25 @@
     width: 50%;
     height: auto;
 }
+
+.FoodContainer{
+    display: block;
+    float: left;
+    width: 45%;
+}
+
+.AdContainer{
+    display: block;
+    float: right;
+    width: 45%;
+}
+
+.FoodInput, .AdInput{
+    float: left;
+    width: 45%;
+}
+
+.Order {
+    display: block;
+    float: left;
+}

@@ -30,20 +30,23 @@ export class AdClass{
     createAdCheckElement(host: HTMLElement, order: Order){
         let option = null;
         let div = document.createElement("div");
-        const label = document.createElement("label");
-        label.innerHTML = "Tip dodatka";
+        div.className = "AdContainer";
+        const label = document.createElement("div");
+        label.innerHTML = "Tip dodatka:";
+        label.className = "AdTyp";
         div.appendChild(label);
 
         for (let i = 0; i < this.typesOfAd.length; i++) {
-            option = document.createElement("label");
-            option.innerHTML = `${this.typesOfAd[i]}`;
-            option.className = "Type";
+            option = document.createElement("div");
+            option.innerHTML = `${i+1}: ${this.typesOfAd[i]}`;
+            option.className = "AdType";
             div.appendChild(option);
         }
-        host.appendChild(div);
-
         const input = document.createElement("input");
-        host.appendChild(input);
+        input.className="AdInput";
+        div.appendChild(input);
+
+        host.appendChild(div);
 
         fromEvent(input, "input")
         .pipe(
