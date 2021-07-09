@@ -1,8 +1,6 @@
-import { reduce, map } from "rxjs/operators";
-import { fromEvent, of } from "rxjs";
+import { fromEvent } from "rxjs";
 import { Ad } from "./models/ad";
 import { Food } from "./models/food";
-import { FoodCl } from "./classes/food";
 
 export class Order{
     food: Food;
@@ -10,11 +8,9 @@ export class Order{
     priceFood: number;
     priceAd: number;
     price: number;
-    reducer = (acc: number, value: number) => acc + value; 
     setFoodOrder(food: Food){
         this.food = food;
         this.setPrice();
-        //console.log(id, type, price, content);
     }
     setAdOrder(ad: Ad){
         this.ads.push(ad);
