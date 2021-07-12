@@ -1,5 +1,5 @@
-export interface Ad{
-    id: number;
-    type: String;
-    price: number;
+export interface Ad {
+  id: number;
+  type: String;
+  price: number;
 }

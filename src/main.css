@@ -1,31 +1,31 @@
-.ShopContainer{
-    float: left;
-    width: 60%;
-    height: auto;
+.ShopContainer {
+  float: left;
+  width: 60%;
+  height: auto;
 }
-.Shop{
-    width: 50%;
-    height: auto;
-}
-
-.FoodContainer{
-    display: block;
-    float: left;
-    width: 45%;
+.Shop {
+  width: 50%;
+  height: auto;
 }
 
-.AdContainer{
-    display: block;
-    float: right;
-    width: 45%;
+.FoodContainer {
+  display: block;
+  float: left;
+  width: 45%;
 }
 
-.FoodInput, .AdInput{
-    float: left;
-    width: 45%;
+.AdContainer {
+  display: block;
+  float: right;
+  width: 45%;
+}
+
+.FoodInput {
+  float: left;
+  width: 45%;
 }
 
 .Order {
-    display: block;
-    float: left;
+  display: block;
+  float: left;
 }
