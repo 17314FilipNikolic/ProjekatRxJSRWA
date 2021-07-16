@@ -1,16 +1,18 @@
 import { DrinkService } from "../services/drinkService";
+import { OrderService } from "../services/orderService";
 import { OrderView } from "./orderView";
 
 export class DrinkView {
   typesOfDrink = ["coca-cola", "fanta", "sprite", "voda"];
   drinkService: DrinkService;
+  orderService: OrderService;
 
   constructor(){
     this.drinkService = new DrinkService();
+    this.orderService = new OrderService();
   }
 
-  createDrinkCheckElement(host: HTMLElement, order: OrderView) {
-    let option = null;
+  createDrinkCheckElement(host: HTMLElement, order: OrderService) {
     let div = document.createElement("div");
     div.className = "DrinkContainer";
     const label = document.createElement("div");
@@ -18,12 +20,19 @@ export class DrinkView {
     label.className = "DrinkTyp";
     div.appendChild(label);
 
-    for (let i = 0; i < this.typesOfDrink.length; i++) {
-      option = document.createElement("div");
-      option.innerHTML = `${i + 1}: ${this.typesOfDrink[i]}`;
-      option.className = "DrinkType";
-      div.appendChild(option);
-    }
+    this.typesOfDrink.forEach((type, index) => {
+      const drinkLabel = document.createElement("label");
+      drinkLabel.className = "adLabel";
+      drinkLabel.innerHTML = `${index + 1}: ${type}`;
+      div.appendChild(drinkLabel);
+
+      div.appendChild(document.createElement("br"));
+    });
+
+    const inputLbl = document.createElement("label");
+    inputLbl.className = "DrinkInputLbl";
+    inputLbl.innerHTML = "Unesite pice koje zelite da narucite:";
+    div.appendChild(inputLbl);
 
     const input = document.createElement("input");
     input.className = "DrinkInput";
@@ -31,6 +40,6 @@ export class DrinkView {
 
     host.appendChild(div);
 
-    this.drinkService.drinkInputObs(input, host, order);
+    order.createDrinkObservable(input);
   }
 }

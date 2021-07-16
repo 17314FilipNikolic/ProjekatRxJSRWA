@@ -11,13 +11,13 @@
 .FoodContainer {
   display: block;
   float: left;
-  width: 30%;
+  width: 35%;
 }
 
 .DrinkContainer {
   display: block;
   float: left;
-  width: 30%;
+  width: 35%;
 }
 
 .AdContainer {

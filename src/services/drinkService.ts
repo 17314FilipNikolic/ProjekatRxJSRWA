@@ -28,7 +28,7 @@ export class DrinkService {
     );
   }
 
-  drinkInputObs(input: HTMLInputElement, host: HTMLElement, order: OrderView) {
+  drinkInputObs(input: HTMLInputElement) {
     return fromEvent(input, "input")
       .pipe(
         debounceTime(1000),
@@ -36,10 +36,6 @@ export class DrinkService {
         filter((text) => text.length > 3),
         switchMap((type) => this.getDrinkObservableByType(type)),
         map((drink) => drink[0])
-      )
-      .subscribe((drink) => {
-        order.setDrinkOrder(drink);
-        order.showOrder(host);
-      });
+      );
   }
 }

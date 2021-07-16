@@ -1,4 +1,5 @@
 import { FoodService } from "../services/foodService";
+import { OrderService } from "../services/orderService";
 import { OrderView } from "./orderView";
 
 export class FoodView {
@@ -9,7 +10,7 @@ export class FoodView {
     this.foodService = new FoodService();
   }
 
-  createFoodCheckElement(host: HTMLElement, order: OrderView) {
+  createFoodCheckElement(host: HTMLElement, order: OrderService) {
     let option = null;
     let div = document.createElement("div");
     div.className = "FoodContainer";
@@ -18,12 +19,17 @@ export class FoodView {
     label.className = "FoodTyp";
     div.appendChild(label);
 
-    for (let i = 0; i < this.typesOfFood.length; i++) {
+    this.typesOfFood.forEach((type, index) => {
       option = document.createElement("div");
-      option.innerHTML = `${i + 1}: ${this.typesOfFood[i]}`;
+      option.innerHTML = `${index + 1}: ${type}`;
       option.className = "FoodType";
       div.appendChild(option);
-    }
+    });
+
+    const inputLbl = document.createElement("label");
+    inputLbl.className = "FoodInputLbl";
+    inputLbl.innerHTML = "Unesite hranu koju zelite da narucite:";
+    div.appendChild(inputLbl);
 
     const input = document.createElement("input");
     input.className = "FoodInput";
@@ -31,6 +37,6 @@ export class FoodView {
 
     host.appendChild(div);
 
-    this.foodService.foodInputObs(input, host, order);
+    order.createFoodObservable(input);
   }
 }

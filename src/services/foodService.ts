@@ -28,7 +28,7 @@ export class FoodService {
     );
   }
 
-  foodInputObs(input: HTMLInputElement, host: HTMLElement, order: OrderView) {
+  foodInputObs(input: HTMLInputElement) {
     return fromEvent(input, "input")
       .pipe(
         debounceTime(1000),
@@ -36,10 +36,6 @@ export class FoodService {
         filter((text) => text.length > 3),
         switchMap((type) => this.getFoodObservableByType(type)),
         map((food) => food[0])
-      )
-      .subscribe((food) => {
-        order.setFoodOrder(food);
-        order.showOrder(host);
-      });
+      );
   }
 }

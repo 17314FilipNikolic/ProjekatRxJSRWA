@@ -28,7 +28,36 @@ export class AdService {
     );
   }
 
-  AdInputObservable(input: HTMLInputElement, host: HTMLElement, order: OrderView){
+  getAdObservableByTypes(types: String[]): Observable<Ad[]> {
+    let typeString: String;
+    if (types && types.length !== 0) {
+      typeString = `${types[0]}`;
+      types &&
+        types.forEach((type, index) => {
+          if (index !== 0) {
+            typeString = `${typeString}&type=${type}`;
+          }
+        });
+    }
+    return from(
+      fetch(`${API_URL}/ad/?type=${typeString}`)
+        .then((response) => {
+          if (response.ok) return response.json();
+          else throw new Error("fetch error");
+        })
+        .catch((er) => console.log(er))
+    );
+  }
+
+  handleButtonClick(ad: string[]) {
+    return this.getAdObservableByTypes(ad);
+  }
+
+  AdInputObservable(
+    input: HTMLInputElement,
+    host: HTMLElement,
+    order: OrderView
+  ) {
     return fromEvent(input, "input")
       .pipe(
         debounceTime(1000),
@@ -43,7 +72,11 @@ export class AdService {
       });
   }
 
-  AdRemoveObservable(input: HTMLInputElement, host: HTMLElement, order: OrderView){
+  AdRemoveObservable(
+    input: HTMLInputElement,
+    host: HTMLElement,
+    order: OrderView
+  ) {
     return fromEvent(input, "input")
       .pipe(
         debounceTime(1000),

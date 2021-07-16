@@ -21,8 +21,12 @@ export class OrderView {
     this.setPrice();
   }
   setAdOrder(ad: Ad) {
+    this.ads = this.ads.filter((oldAd) => oldAd.id !== ad.id);
     this.ads.push(ad);
     this.setPrice();
+  }
+  setAdsOrder(ads: Ad[]){
+    ads.forEach((ad) => this.setAdOrder(ad));
   }
   deleteAdOrder(adRemove: Ad) {
     this.ads = this.ads.filter((ad) => ad.id !== adRemove.id);
@@ -63,9 +67,7 @@ export class OrderView {
     container.appendChild(foodtype);
 
     const foodcontent = document.createElement("label");
-    foodcontent.innerHTML = `Sadrzaj: ${
-      this.food && this.food.content
-    }`;
+    foodcontent.innerHTML = `Sadrzaj: ${this.food && this.food.content}`;
     foodcontent.className = "FoodContent";
     container.appendChild(foodcontent);
 
@@ -75,12 +77,16 @@ export class OrderView {
     container.appendChild(foodprice);
 
     const drinktype = document.createElement("div");
-    drinktype.innerHTML = `Pice: ${this.drink ? this.drink.type : ""}`;
+    drinktype.innerHTML = `Pice: ${
+      this.drink ? this.drink.type : "Niste narucili pice"
+    }`;
     drinktype.className = "Drink";
     container.appendChild(drinktype);
 
     const drinkprice = document.createElement("div");
-    drinkprice.innerHTML = `Cena pica: ${this.drink?.price}`;
+    drinkprice.innerHTML = `Cena pica: ${
+      this.drink ? this.drink.price : "Niste narucili pice"
+    }`;
     drinkprice.className = "DrinkPrice";
     container.appendChild(drinkprice);
 
