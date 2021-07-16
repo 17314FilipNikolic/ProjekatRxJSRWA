@@ -1,46 +1,54 @@
-import { searchForFood } from "../services/orderService";
+import { OrderService } from "../services/orderService";
 
-export function drawPage() {
-  const inputDiv = document.createElement("div");
-  inputDiv.classList.add("unosDiv");
-  document.body.appendChild(inputDiv);
+export class MainView {
+  orderService: OrderService;
 
-  const food_input = document.createElement("input");
-  inputDiv.appendChild(food_input);
+  constructor() {
+    this.orderService = new OrderService();
+  }
 
-  const food_lbl = document.createElement("label");
-  inputDiv.appendChild(food_lbl);
-  food_lbl.innerHTML = "ovde je hrana";
+  drawPage() {
+    const inputDiv = document.createElement("div");
+    inputDiv.classList.add("unosDiv");
+    document.body.appendChild(inputDiv);
 
-  const ad_input = document.createElement("input");
-  inputDiv.appendChild(ad_input);
+    const food_input = document.createElement("input");
+    inputDiv.appendChild(food_input);
 
-  const ad_lbl = document.createElement("label");
-  inputDiv.appendChild(ad_lbl);
-  ad_lbl.innerHTML = "ovde je prilog";
+    const food_lbl = document.createElement("label");
+    inputDiv.appendChild(food_lbl);
+    food_lbl.innerHTML = "ovde je hrana";
 
-  const drink_input = document.createElement("input");
-  inputDiv.appendChild(drink_input);
+    const ad_input = document.createElement("input");
+    inputDiv.appendChild(ad_input);
 
-  const drink_lbl = document.createElement("label");
-  inputDiv.appendChild(drink_lbl);
-  drink_lbl.innerHTML = "ovde je pice";
+    const ad_lbl = document.createElement("label");
+    inputDiv.appendChild(ad_lbl);
+    ad_lbl.innerHTML = "ovde je prilog";
 
-  const orderDiv = document.createElement("div");
-  orderDiv.classList.add("narudzbinaDiv");
-  document.body.appendChild(orderDiv);
+    const drink_input = document.createElement("input");
+    inputDiv.appendChild(drink_input);
 
-  const order_lbl = document.createElement("label");
-  orderDiv.appendChild(order_lbl);
-  order_lbl.innerHTML = "ovde je narudzbina";
+    const drink_lbl = document.createElement("label");
+    inputDiv.appendChild(drink_lbl);
+    drink_lbl.innerHTML = "ovde je pice";
 
-  searchForFood(
-    food_input,
-    ad_input,
-    drink_input,
-    order_lbl,
-    food_lbl,
-    ad_lbl,
-    drink_lbl
-  );
+    const orderDiv = document.createElement("div");
+    orderDiv.classList.add("narudzbinaDiv");
+    document.body.appendChild(orderDiv);
+
+    const order_lbl = document.createElement("label");
+    orderDiv.appendChild(order_lbl);
+    order_lbl.innerHTML = "ovde je narudzbina";
+
+    this.orderService.searchForFood(
+      food_input,
+      ad_input,
+      drink_input,
+      order_lbl,
+      food_lbl,
+      ad_lbl,
+      drink_lbl
+    );
+  }
 }

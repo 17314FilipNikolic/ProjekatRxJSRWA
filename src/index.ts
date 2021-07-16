@@ -1,3 +1,5 @@
-import { drawPage } from "./views/mainView";
+import { MainView } from "./views/mainView";
 
-drawPage();
+const mainView: MainView = new MainView();
+
+mainView.drawPage();
