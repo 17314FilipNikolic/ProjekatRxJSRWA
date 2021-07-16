@@ -2,45 +2,49 @@
   "food": [
     {
       "id": 1,
-      "type": "pljeskavica",
-      "price": 150
+      "type": "Sendvic",
+      "price": "120",
+      "content": "Kulen, parizer, pavlaka, paradajz"
     },
     {
       "id": 2,
-      "type": "piletina",
-      "price": 200
+      "type": "Pica",
+      "price": "100",
+      "content": "Kulen, sampinjoni, masline, paradajz"
     },
     {
       "id": 3,
-      "type": "palacinka",
-      "price": 120
+      "type": "Gurmanska pljeskavica",
+      "price": "200",
+      "content": "kackavalj, svinjsko meso, slanina"
     },
     {
       "id": 4,
-      "type": "giros",
-      "price": 250
+      "type": "Pasta",
+      "price": "170",
+      "content": "Kulen, parizer, pavlaka, paradajz"
     }
   ],
   "ad": [
     {
       "id": 1,
-      "type": "pomfrit"
+      "type": "kecap",
+      "price": "5"
     },
     {
       "id": 2,
-      "type": "kupus"
+      "type": "majonez",
+      "price": "10"
     },
     {
       "id": 3,
-      "type": "paradajz"
+      "type": "aleva paprika",
+      "price": "7"
     },
     {
       "id": 4,
-      "type": "krastavac"
-    },
-    {
-      "id": 5,
-      "type": "krem-plazma"
+      "type": "urnebes",
+      "price": "15"
     }
   ],
   "drink": [

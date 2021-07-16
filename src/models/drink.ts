@@ -1,5 +1,5 @@
 export interface Drink {
   id: number;
-  type: string;
+  type: String;
   price: number;
 }

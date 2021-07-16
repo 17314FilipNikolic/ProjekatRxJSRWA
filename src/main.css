@@ -1,11 +1,37 @@
-.unosDiv {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+.ShopContainer {
+  float: left;
+  width: 60%;
+  height: auto;
+}
+.Shop {
+  width: 50%;
+  height: auto;
 }
 
-.narudzbinaDiv {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
+.FoodContainer {
+  display: block;
+  float: left;
+  width: 30%;
+}
+
+.DrinkContainer {
+  display: block;
+  float: left;
+  width: 30%;
+}
+
+.AdContainer {
+  display: block;
+  float: right;
+  width: 30%;
+}
+
+.FoodInput {
+  float: left;
+  width: 45%;
+}
+
+.Order {
+  display: block;
+  float: left;
 }

@@ -1,32 +1,45 @@
 import { debounceTime, map, filter, switchMap } from "rxjs/operators";
 import { Food } from "../models/food";
 import { from, fromEvent, Observable } from "rxjs";
+import { OrderView } from "../views/orderView";
 
 const API_URL = "http://localhost:3000";
 
 export class FoodService {
-  
-  foodInputObs(inputEl: HTMLInputElement, labelEl: HTMLLabelElement) {
-    return fromEvent(inputEl, "input").pipe(
-      debounceTime(500),
-      map((ev: InputEvent) => (<HTMLInputElement>ev.target).value),
-      filter((text) => text.length >= 3),
-      switchMap((text) => this.getFood(text, labelEl)),
-      map((text) => text[0])
+  getFoodObservableById(id: number): Observable<Food> {
+    return from(
+      fetch(`${API_URL}/food/${id}`)
+        .then((response) => {
+          if (response.ok) return response.json();
+          else throw new Error("fetch error");
+        })
+        .catch((er) => console.log(er))
     );
   }
 
-  getFood(food: string, food_lbl: HTMLLabelElement): Observable<Food[]> {
+  getFoodObservableByType(type: String): Observable<Food[]> {
     return from(
-      fetch(`${API_URL}/food/?type=${food}`)
+      fetch(`${API_URL}/food/?type=${type}`)
         .then((response) => {
-          if (!response.ok) {
-            throw new Error("Hrana nije pronadjena");
-          } else {
-            return response.json();
-          }
+          if (response.ok) return response.json();
+          else throw new Error("fetch error");
         })
-        .catch((err) => (food_lbl.innerHTML = "greska"))
+        .catch((er) => console.log(er))
     );
+  }
+
+  foodInputObs(input: HTMLInputElement, host: HTMLElement, order: OrderView) {
+    return fromEvent(input, "input")
+      .pipe(
+        debounceTime(1000),
+        map((ev: Event) => (<HTMLInputElement>ev.target).value),
+        filter((text) => text.length > 3),
+        switchMap((type) => this.getFoodObservableByType(type)),
+        map((food) => food[0])
+      )
+      .subscribe((food) => {
+        order.setFoodOrder(food);
+        order.showOrder(host);
+      });
   }
 }

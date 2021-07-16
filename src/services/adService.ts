@@ -1,28 +1,60 @@
 import { Ad } from "../models/ad";
 import { from, fromEvent, Observable } from "rxjs";
 import { debounceTime, map, filter, switchMap } from "rxjs/operators";
+import { OrderView } from "../views/orderView";
 
 const API_URL = "http://localhost:3000";
 
 export class AdService {
-  adInputObs(inputEl: HTMLInputElement, labelEl: HTMLLabelElement) {
-    return fromEvent(inputEl, "input").pipe(
-      debounceTime(500),
-      map((ev: InputEvent) => (<HTMLInputElement>ev.target).value),
-      filter((text) => text.length >= 3),
-      switchMap((text) => this.getAd(text, labelEl)),
-      map((text) => text[0])
+  getAdObservableById(id: number): Observable<Ad> {
+    return from(
+      fetch(`${API_URL}/ad/${id}`)
+        .then((response) => {
+          if (response.ok) return response.json();
+          else throw new Error("fetch error");
+        })
+        .catch((er) => console.log(er))
     );
   }
 
-  getAd(ad: string, ad_lbl: HTMLLabelElement): Observable<Ad[]> {
+  getAdObservableByType(type: String): Observable<Ad[]> {
     return from(
-      fetch(`${API_URL}/ad/?type=${ad}`)
-        .then((res) => {
-          if (res.ok) return res.json();
-          else throw new Error("Prilog nije pronadjen");
+      fetch(`${API_URL}/ad/?type=${type}`)
+        .then((response) => {
+          if (response.ok) return response.json();
+          else throw new Error("fetch error");
         })
-        .catch((err) => (ad_lbl.innerHTML = "greska"))
+        .catch((er) => console.log(er))
     );
+  }
+
+  AdInputObservable(input: HTMLInputElement, host: HTMLElement, order: OrderView){
+    return fromEvent(input, "input")
+      .pipe(
+        debounceTime(1000),
+        map((ev: Event) => (<HTMLInputElement>ev.target).value),
+        filter((text) => text.length > 3),
+        switchMap((type) => this.getAdObservableByType(type)),
+        map((ads) => ads[0])
+      )
+      .subscribe((ad) => {
+        order.setAdOrder(ad);
+        order.showOrder(host);
+      });
+  }
+
+  AdRemoveObservable(input: HTMLInputElement, host: HTMLElement, order: OrderView){
+    return fromEvent(input, "input")
+      .pipe(
+        debounceTime(1000),
+        map((ev: Event) => (<HTMLInputElement>ev.target).value),
+        filter((text) => text.length > 3),
+        switchMap((type) => this.getAdObservableByType(type)),
+        map((ads) => ads[0])
+      )
+      .subscribe((ad) => {
+        order.deleteAdOrder(ad);
+        order.showOrder(host);
+      });
   }
 }
