@@ -1,6 +1,5 @@
 import { FoodService } from "../services/foodService";
 import { OrderService } from "../services/orderService";
-import { OrderView } from "./orderView";
 
 export class FoodView {
   typesOfFood = ["Sendvic", "Pica", "Gurmanska pljeskavica", "Pasta"];

@@ -1,6 +1,5 @@
 import { DrinkService } from "../services/drinkService";
 import { OrderService } from "../services/orderService";
-import { OrderView } from "./orderView";
 
 export class DrinkView {
   typesOfDrink = ["coca-cola", "fanta", "sprite", "voda"];

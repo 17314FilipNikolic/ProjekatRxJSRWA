@@ -1,6 +1,5 @@
 import { AdService } from "../services/adService";
 import { OrderService } from "../services/orderService";
-import { OrderView } from "../views/orderView";
 
 export class AdView {
   typesOfAd = ["kecap", "majonez", "aleva paprika", "urnebes"];
@@ -11,7 +10,6 @@ export class AdView {
   }
 
   createAdCheckElement(host: HTMLElement, order: OrderService) {
-    let option = null;
     let div = document.createElement("div");
     div.className = "AdContainer";
     const label = document.createElement("div");
@@ -41,7 +39,7 @@ export class AdView {
     btn.innerHTML = "Ubaci dodatke u narudzbinu";
     div.appendChild(btn);
 
-    order.createAdObservable(btn, div);
+    order.createAdObservable(btn);
 
     host.appendChild(div);
   }

@@ -1,7 +1,6 @@
 import { Ad } from "../models/ad";
 import { from, fromEvent, Observable } from "rxjs";
-import { debounceTime, map, filter, switchMap } from "rxjs/operators";
-import { OrderView } from "../views/orderView";
+import { map, switchMap } from "rxjs/operators";
 
 const API_URL = "http://localhost:3000";
 
@@ -49,8 +48,7 @@ export class AdService {
     );
   }
 
-  handleButtonClick(btn: HTMLButtonElement, div: HTMLDivElement) {
-    console.log(div.getElementsByClassName("AdType"));
+  handleButtonClick(btn: HTMLButtonElement) {
     return fromEvent(btn, "click").pipe(
       map((ev: Event) => (<HTMLButtonElement>ev.target).parentNode),
       map((div) => Array.from(div.querySelectorAll(".AdType"))),

@@ -10,10 +10,9 @@ export class OrderView {
   priceFood: number;
   priceAd: number;
   priceDrink: number;
-  price: number;
 
   constructor() {
-    this.priceFood = this.priceAd = this.priceDrink = this.price = 0;
+    this.priceFood = this.priceAd = this.priceDrink  = 0;
   }
 
   setFoodOrder(food: Food) {
@@ -132,6 +131,6 @@ export class OrderView {
   clearOrder() {
     this.food = null;
     this.ads = [];
-    this.priceAd = this.priceFood = 0;
+    this.priceAd = this.priceFood = this.priceDrink = 0;
   }
 }

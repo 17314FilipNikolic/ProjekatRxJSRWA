@@ -1,5 +1,5 @@
-import { combineLatest, fromEvent, merge, Observable } from "rxjs";
-import { filter, map, mapTo, switchMap } from "rxjs/operators";
+import { merge, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Ad } from "../models/ad";
 import { Drink } from "../models/drink";
 import { Food } from "../models/food";
@@ -30,8 +30,8 @@ export class OrderService {
     this.drinkObservable = this.drinkService.drinkInputObs(input);
   }
 
-  createAdObservable(btn: HTMLButtonElement, div: HTMLDivElement) {
-    this.adObservable = this.adService.handleButtonClick(btn, div);
+  createAdObservable(btn: HTMLButtonElement) {
+    this.adObservable = this.adService.handleButtonClick(btn);
   }
 
   makeOrder(order: OrderView, host: HTMLElement) {
