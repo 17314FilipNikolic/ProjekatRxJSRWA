@@ -7,7 +7,7 @@ export class DrinkView {
   drinkService: DrinkService;
   orderService: OrderService;
 
-  constructor(){
+  constructor() {
     this.drinkService = new DrinkService();
     this.orderService = new OrderService();
   }

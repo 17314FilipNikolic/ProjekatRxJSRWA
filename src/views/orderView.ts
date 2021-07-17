@@ -12,6 +12,10 @@ export class OrderView {
   priceDrink: number;
   price: number;
 
+  constructor() {
+    this.priceFood = this.priceAd = this.priceDrink = this.price = 0;
+  }
+
   setFoodOrder(food: Food) {
     this.food = food;
     this.setPrice();
@@ -25,7 +29,7 @@ export class OrderView {
     this.ads.push(ad);
     this.setPrice();
   }
-  setAdsOrder(ads: Ad[]){
+  setAdsOrder(ads: Ad[]) {
     ads.forEach((ad) => this.setAdOrder(ad));
   }
   deleteAdOrder(adRemove: Ad) {
@@ -62,17 +66,23 @@ export class OrderView {
     container.appendChild(title);
 
     const foodtype = document.createElement("div");
-    foodtype.innerHTML = `Hrana: ${this.food ? this.food.type : ""}`;
+    foodtype.innerHTML = `Hrana: ${
+      this.food ? this.food.type : "Jos uvek niste narucili hranu"
+    }`;
     foodtype.className = "Food";
     container.appendChild(foodtype);
 
     const foodcontent = document.createElement("label");
-    foodcontent.innerHTML = `Sadrzaj: ${this.food && this.food.content}`;
+    foodcontent.innerHTML = `Sadrzaj: ${
+      this.food ? this.food.content : "Jos uvek niste narucili hranu"
+    }`;
     foodcontent.className = "FoodContent";
     container.appendChild(foodcontent);
 
     const foodprice = document.createElement("div");
-    foodprice.innerHTML = `Cena hrane: ${this.food?.price}`;
+    foodprice.innerHTML = `Cena hrane: ${
+      this.food ? this.food.price : "Jos uvek niste narucili hranu"
+    }`;
     foodprice.className = "FoodPrice";
     container.appendChild(foodprice);
 

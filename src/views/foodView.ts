@@ -6,7 +6,7 @@ export class FoodView {
   typesOfFood = ["Sendvic", "Pica", "Gurmanska pljeskavica", "Pasta"];
   foodService: FoodService;
 
-  constructor(){
+  constructor() {
     this.foodService = new FoodService();
   }
 

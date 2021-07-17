@@ -41,17 +41,7 @@ export class AdView {
     btn.innerHTML = "Ubaci dodatke u narudzbinu";
     div.appendChild(btn);
 
-    btn.onclick = () => {
-      order.createAdObservable(
-        Array.from(document.getElementsByName("Ad"))
-          .map((checkBox) =>
-            (<HTMLInputElement>checkBox).checked
-              ? (<HTMLInputElement>checkBox).value
-              : ""
-          )
-          .filter((value) => value !== "")
-      );
-    };
+    order.createAdObservable(btn, div);
 
     host.appendChild(div);
   }

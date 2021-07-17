@@ -1,7 +1,6 @@
 import { debounceTime, map, filter, switchMap } from "rxjs/operators";
 import { Food } from "../models/food";
 import { from, fromEvent, Observable } from "rxjs";
-import { OrderView } from "../views/orderView";
 
 const API_URL = "http://localhost:3000";
 
@@ -29,13 +28,12 @@ export class FoodService {
   }
 
   foodInputObs(input: HTMLInputElement) {
-    return fromEvent(input, "input")
-      .pipe(
-        debounceTime(1000),
-        map((ev: Event) => (<HTMLInputElement>ev.target).value),
-        filter((text) => text.length > 3),
-        switchMap((type) => this.getFoodObservableByType(type)),
-        map((food) => food[0])
-      );
+    return fromEvent(input, "input").pipe(
+      debounceTime(1000),
+      map((ev: Event) => (<HTMLInputElement>ev.target).value),
+      filter((text) => text.length > 3),
+      switchMap((type) => this.getFoodObservableByType(type)),
+      map((food) => food[0])
+    );
   }
 }

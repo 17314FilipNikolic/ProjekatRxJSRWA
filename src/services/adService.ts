@@ -49,45 +49,17 @@ export class AdService {
     );
   }
 
-  handleButtonClick(ad: string[]) {
-    return this.getAdObservableByTypes(ad);
-  }
-
-  AdInputObservable(
-    input: HTMLInputElement,
-    host: HTMLElement,
-    order: OrderView
-  ) {
-    return fromEvent(input, "input")
-      .pipe(
-        debounceTime(1000),
-        map((ev: Event) => (<HTMLInputElement>ev.target).value),
-        filter((text) => text.length > 3),
-        switchMap((type) => this.getAdObservableByType(type)),
-        map((ads) => ads[0])
-      )
-      .subscribe((ad) => {
-        order.setAdOrder(ad);
-        order.showOrder(host);
-      });
-  }
-
-  AdRemoveObservable(
-    input: HTMLInputElement,
-    host: HTMLElement,
-    order: OrderView
-  ) {
-    return fromEvent(input, "input")
-      .pipe(
-        debounceTime(1000),
-        map((ev: Event) => (<HTMLInputElement>ev.target).value),
-        filter((text) => text.length > 3),
-        switchMap((type) => this.getAdObservableByType(type)),
-        map((ads) => ads[0])
-      )
-      .subscribe((ad) => {
-        order.deleteAdOrder(ad);
-        order.showOrder(host);
-      });
+  handleButtonClick(btn: HTMLButtonElement, div: HTMLDivElement) {
+    console.log(div.getElementsByClassName("AdType"));
+    return fromEvent(btn, "click").pipe(
+      map((ev: Event) => (<HTMLButtonElement>ev.target).parentNode),
+      map((div) => Array.from(div.querySelectorAll(".AdType"))),
+      map((checkBoxs) => <HTMLInputElement[]>checkBoxs),
+      map((checkBoxs) =>
+        checkBoxs.filter((checkBox) => checkBox.checked === true)
+      ),
+      map((checkBoxs) => checkBoxs.map((checkBox) => checkBox.value)),
+      switchMap((types) => this.getAdObservableByTypes(types))
+    );
   }
 }

@@ -29,13 +29,12 @@ export class DrinkService {
   }
 
   drinkInputObs(input: HTMLInputElement) {
-    return fromEvent(input, "input")
-      .pipe(
-        debounceTime(1000),
-        map((ev: Event) => (<HTMLInputElement>ev.target).value),
-        filter((text) => text.length > 3),
-        switchMap((type) => this.getDrinkObservableByType(type)),
-        map((drink) => drink[0])
-      );
+    return fromEvent(input, "input").pipe(
+      debounceTime(1000),
+      map((ev: Event) => (<HTMLInputElement>ev.target).value),
+      filter((text) => text.length > 3),
+      switchMap((type) => this.getDrinkObservableByType(type)),
+      map((drink) => drink[0])
+    );
   }
 }

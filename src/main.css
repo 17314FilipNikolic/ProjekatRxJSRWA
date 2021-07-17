@@ -1,37 +1,29 @@
-.ShopContainer {
-  float: left;
-  width: 60%;
-  height: auto;
-}
-.Shop {
-  width: 50%;
-  height: auto;
-}
-
 .FoodContainer {
   display: block;
   float: left;
-  width: 35%;
+  width: 33%;
+  height: 100px;
+  margin-left: 10px;
 }
 
 .DrinkContainer {
   display: block;
   float: left;
-  width: 35%;
+  width: 33%;
+  height: 100px;
 }
 
 .AdContainer {
   display: block;
-  float: right;
-  width: 30%;
-}
-
-.FoodInput {
   float: left;
-  width: 45%;
+  width: 30%;
+  height: 100px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .Order {
   display: block;
   float: left;
+  margin-top: 50px;
 }
