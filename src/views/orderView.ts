@@ -35,6 +35,9 @@ export class OrderView {
     this.ads = this.ads.filter((ad) => ad.id !== adRemove.id);
     this.setPrice();
   }
+  deleteAdsOrder(ads: Ad[]) {
+    ads.forEach((ad) => this.deleteAdOrder(ad));
+  }
   setPrice() {
     this.priceFood = this.food ? this.food.price : 0;
     this.priceDrink = this.drink ? this.drink.price : 0;

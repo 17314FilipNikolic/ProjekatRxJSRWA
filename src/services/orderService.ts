@@ -11,6 +11,7 @@ import { FoodService } from "./foodService";
 export class OrderService {
   foodObservable: Observable<Food>;
   adObservable: Observable<Ad[]>;
+  adRemoveObservable: Observable<Ad[]>;
   drinkObservable: Observable<Drink>;
   foodService: FoodService;
   adService: AdService;
@@ -34,11 +35,16 @@ export class OrderService {
     this.adObservable = this.adService.handleButtonClick(btn);
   }
 
+  createAdRemoveObservable(btn: HTMLButtonElement) {
+    this.adRemoveObservable = this.adService.handleButtonRemoveClick(btn);
+  }
+
   makeOrder(order: OrderView, host: HTMLElement) {
     merge(
       this.foodObservable.pipe(map((food) => order.setFoodOrder(food))),
       this.drinkObservable.pipe(map((drink) => order.setDrinkOrder(drink))),
-      this.adObservable.pipe(map((ads) => order.setAdsOrder(ads)))
+      this.adObservable.pipe(map((ads) => order.setAdsOrder(ads))),
+      this.adRemoveObservable.pipe(map((ads) => order.deleteAdsOrder(ads)))
     ).subscribe(() => order.showOrder(host));
   }
 }

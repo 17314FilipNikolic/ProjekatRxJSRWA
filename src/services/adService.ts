@@ -61,4 +61,18 @@ export class AdService {
       switchMap((types) => this.getAdObservableByTypes(types))
     );
   }
+
+  handleButtonRemoveClick(btn: HTMLButtonElement) {
+    return fromEvent(btn, "click").pipe(
+      debounceTime(1000),
+      map((ev: Event) => (<HTMLButtonElement>ev.target).parentNode),
+      map((div) => Array.from(div.querySelectorAll(".AdType"))),
+      map((checkBoxs) => <HTMLInputElement[]>checkBoxs),
+      map((checkBoxs) =>
+        checkBoxs.filter((checkBox) => checkBox.checked === true)
+      ),
+      map((checkBoxs) => checkBoxs.map((checkBox) => checkBox.value)),
+      switchMap((types) => this.getAdObservableByTypes(types))
+    );
+  }
 }

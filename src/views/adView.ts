@@ -35,11 +35,17 @@ export class AdView {
       div.appendChild(document.createElement("br"));
     });
 
-    const btn = document.createElement("button");
-    btn.innerHTML = "Naruci priloge";
-    div.appendChild(btn);
+    const btnAd = document.createElement("button");
+    btnAd.innerHTML = "Naruci priloge";
+    div.appendChild(btnAd);
 
-    order.createAdObservable(btn);
+    order.createAdObservable(btnAd);
+
+    const btnRemove = document.createElement("button");
+    btnRemove.innerHTML = "Izbaci priloge";
+    div.appendChild(btnRemove);
+
+    order.createAdRemoveObservable(btnRemove);
 
     host.appendChild(div);
   }
