@@ -15,30 +15,30 @@ export class DrinkView {
     let div = document.createElement("div");
     div.className = "DrinkContainer";
     const label = document.createElement("div");
-    label.innerHTML = "Tip pica:";
+    label.innerHTML = "Izaberite tip pica:";
     label.className = "DrinkTyp";
     div.appendChild(label);
 
     this.typesOfDrink.forEach((type, index) => {
-      const adLabel = document.createElement("label");
-      adLabel.className = "adLabel";
-      adLabel.innerHTML = `${index + 1}: ${type}`;
-      adLabel.htmlFor = `${index}`;
-      div.appendChild(adLabel);
-
-      const adCheck = document.createElement("input");
-      adCheck.type = "radio";
-      adCheck.name = "Drink";
-      adCheck.className = "DrinkType";
-      adCheck.value = `${type}`;
-      adCheck.id = `${index}`;
-      div.appendChild(adCheck);
+      const drinkRadio = document.createElement("input");
+      drinkRadio.type = "radio";
+      drinkRadio.name = "Drink";
+      drinkRadio.className = "DrinkType";
+      drinkRadio.value = `${type}`;
+      drinkRadio.id = `${index}`;
+      div.appendChild(drinkRadio);
+      
+      const drinkLabel = document.createElement("label");
+      drinkLabel.className = "adLabel";
+      drinkLabel.innerHTML = `${index + 1}: ${type}`;
+      drinkLabel.htmlFor = `${index}`;
+      div.appendChild(drinkLabel);
 
       div.appendChild(document.createElement("br"));
     });
 
     const btn = document.createElement("button");
-    btn.innerHTML = "Ubaci hranu u narudzbinu";
+    btn.innerHTML = "Naruci pice";
     div.appendChild(btn);
 
     host.appendChild(div);

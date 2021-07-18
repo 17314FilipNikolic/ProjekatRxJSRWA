@@ -115,12 +115,12 @@ export class OrderView {
   showAds(host: HTMLElement){
     this.ads.forEach((ad) => {
       const adtype = document.createElement("div");
-      adtype.innerHTML = `Tip dodatka: ${ad.type}`;
+      adtype.innerHTML = `Tip priloga: ${ad.type}`;
       adtype.className = "Ad";
       host.appendChild(adtype);
 
       const adprice = document.createElement("div");
-      adprice.innerHTML = `Cena dodatka: ${ad.price}`;
+      adprice.innerHTML = `Cena priloga: ${ad.price}`;
       adprice.className = "AdPrice";
       host.appendChild(adprice);
     });

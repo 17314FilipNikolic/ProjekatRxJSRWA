@@ -13,17 +13,11 @@ export class AdView {
     let div = document.createElement("div");
     div.className = "AdContainer";
     const label = document.createElement("div");
-    label.innerHTML = "Izaberite tip dodatka:";
+    label.innerHTML = "Izaberite tip priloga:";
     label.className = "AdTyp";
     div.appendChild(label);
 
     this.typesOfAd.forEach((type, index) => {
-      const adLabel = document.createElement("label");
-      adLabel.className = "adLabel";
-      adLabel.innerHTML = `${index + 1}: ${type}`;
-      adLabel.htmlFor = `${index}`;
-      div.appendChild(adLabel);
-
       const adCheck = document.createElement("input");
       adCheck.type = "checkbox";
       adCheck.name = "Ad";
@@ -31,12 +25,18 @@ export class AdView {
       adCheck.value = `${type}`;
       adCheck.id = `${index}`;
       div.appendChild(adCheck);
+      
+      const adLabel = document.createElement("label");
+      adLabel.className = "adLabel";
+      adLabel.innerHTML = `${index + 1}: ${type}`;
+      adLabel.htmlFor = `${index}`;
+      div.appendChild(adLabel);
 
       div.appendChild(document.createElement("br"));
     });
 
     const btn = document.createElement("button");
-    btn.innerHTML = "Ubaci dodatke u narudzbinu";
+    btn.innerHTML = "Naruci priloge";
     div.appendChild(btn);
 
     order.createAdObservable(btn);
