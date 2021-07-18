@@ -1,6 +1,6 @@
 import { Ad } from "../models/ad";
 import { from, fromEvent, Observable } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
+import { debounceTime, map, switchMap } from "rxjs/operators";
 
 const API_URL = "http://localhost:3000";
 
@@ -50,6 +50,7 @@ export class AdService {
 
   handleButtonClick(btn: HTMLButtonElement) {
     return fromEvent(btn, "click").pipe(
+      debounceTime(1000),
       map((ev: Event) => (<HTMLButtonElement>ev.target).parentNode),
       map((div) => Array.from(div.querySelectorAll(".AdType"))),
       map((checkBoxs) => <HTMLInputElement[]>checkBoxs),
