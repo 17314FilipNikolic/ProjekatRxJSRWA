@@ -55,7 +55,7 @@ export class OrderView {
     array.forEach((element) => {
       host.removeChild(element);
     });
-    
+
     const container = document.createElement("div");
     container.className = "Order";
     host.appendChild(container);
@@ -65,9 +65,9 @@ export class OrderView {
     title.className = "Title";
     container.appendChild(title);
 
-    if (this.food) this.showFood(container);
+    this.food && this.showFood(container);
 
-    if (this.drink) this.showDrink(container);
+    this.drink && this.showDrink(container);
 
     this.ads.length > 0 && this.showAds(container);
 
