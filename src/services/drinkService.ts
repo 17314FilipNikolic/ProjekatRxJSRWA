@@ -27,11 +27,16 @@ export class DrinkService {
     );
   }
 
-  drinkInputObs(input: HTMLInputElement) {
-    return fromEvent(input, "input").pipe(
-      debounceTime(1000),
-      map((ev: Event) => (<HTMLInputElement>ev.target).value),
-      filter((text) => text.length > 3),
+  handleButtonClick(btn: HTMLButtonElement) {
+    return fromEvent(btn, "click").pipe(
+      map((ev: Event) => (<HTMLButtonElement>ev.target).parentNode),
+      map((div) => Array.from(div.querySelectorAll(".DrinkType"))),
+      map((radios) => <HTMLInputElement[]>radios),
+      map((radios) =>
+        radios.filter((radio) => radio.checked === true)
+      ),
+      map((radios) => radios[0]),
+      map((radio) => radio.value),
       switchMap((type) => this.getDrinkObservableByType(type)),
       map((drink) => drink[0])
     );

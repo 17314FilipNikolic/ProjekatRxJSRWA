@@ -12,7 +12,7 @@ export class OrderView {
   priceDrink: number;
 
   constructor() {
-    this.priceFood = this.priceAd = this.priceDrink  = 0;
+    this.priceFood = this.priceAd = this.priceDrink = 0;
   }
 
   setFoodOrder(food: Food) {
@@ -55,6 +55,7 @@ export class OrderView {
     array.forEach((element) => {
       host.removeChild(element);
     });
+    
     const container = document.createElement("div");
     container.className = "Order";
     host.appendChild(container);
@@ -64,53 +65,11 @@ export class OrderView {
     title.className = "Title";
     container.appendChild(title);
 
-    const foodtype = document.createElement("div");
-    foodtype.innerHTML = `Hrana: ${
-      this.food ? this.food.type : "Jos uvek niste narucili hranu"
-    }`;
-    foodtype.className = "Food";
-    container.appendChild(foodtype);
+    if (this.food) this.showFood(container);
 
-    const foodcontent = document.createElement("label");
-    foodcontent.innerHTML = `Sadrzaj: ${
-      this.food ? this.food.content : "Jos uvek niste narucili hranu"
-    }`;
-    foodcontent.className = "FoodContent";
-    container.appendChild(foodcontent);
+    if (this.drink) this.showDrink(container);
 
-    const foodprice = document.createElement("div");
-    foodprice.innerHTML = `Cena hrane: ${
-      this.food ? this.food.price : "Jos uvek niste narucili hranu"
-    }`;
-    foodprice.className = "FoodPrice";
-    container.appendChild(foodprice);
-
-    const drinktype = document.createElement("div");
-    drinktype.innerHTML = `Pice: ${
-      this.drink ? this.drink.type : "Niste narucili pice"
-    }`;
-    drinktype.className = "Drink";
-    container.appendChild(drinktype);
-
-    const drinkprice = document.createElement("div");
-    drinkprice.innerHTML = `Cena pica: ${
-      this.drink ? this.drink.price : "Niste narucili pice"
-    }`;
-    drinkprice.className = "DrinkPrice";
-    container.appendChild(drinkprice);
-
-    this.ads.length > 0 &&
-      this.ads.forEach((ad) => {
-        const adtype = document.createElement("div");
-        adtype.innerHTML = `Tip dodatka: ${ad.type}`;
-        adtype.className = "Ad";
-        container.appendChild(adtype);
-
-        const adprice = document.createElement("div");
-        adprice.innerHTML = `Cena dodatka: ${ad.price}`;
-        adprice.className = "AdPrice";
-        container.appendChild(adprice);
-      });
+    this.ads.length > 0 && this.showAds(container);
 
     const price = document.createElement("div");
     price.innerHTML = `Cena poruzdbine je: ${
@@ -121,13 +80,61 @@ export class OrderView {
     price.className = "Price";
     container.appendChild(price);
 
+    this.createClearButton(container);
+  }
+
+  showFood(host: HTMLElement) {
+    const foodtype = document.createElement("div");
+    foodtype.innerHTML = `Hrana: ${this.food.type}`;
+    foodtype.className = "Food";
+    host.appendChild(foodtype);
+
+    const foodcontent = document.createElement("label");
+    foodcontent.innerHTML = `Sadrzaj: ${this.food.content}`;
+    foodcontent.className = "FoodContent";
+    host.appendChild(foodcontent);
+
+    const foodprice = document.createElement("div");
+    foodprice.innerHTML = `Cena hrane: ${this.food.price}`;
+    foodprice.className = "FoodPrice";
+    host.appendChild(foodprice);
+  }
+
+  showDrink(host: HTMLElement) {
+    const drinktype = document.createElement("div");
+    drinktype.innerHTML = `Pice: ${this.drink.type}`;
+    drinktype.className = "Drink";
+    host.appendChild(drinktype);
+
+    const drinkprice = document.createElement("div");
+    drinkprice.innerHTML = `Cena pica: ${this.drink.price}`;
+    drinkprice.className = "DrinkPrice";
+    host.appendChild(drinkprice);
+  }
+
+  showAds(host: HTMLElement){
+    this.ads.forEach((ad) => {
+      const adtype = document.createElement("div");
+      adtype.innerHTML = `Tip dodatka: ${ad.type}`;
+      adtype.className = "Ad";
+      host.appendChild(adtype);
+
+      const adprice = document.createElement("div");
+      adprice.innerHTML = `Cena dodatka: ${ad.price}`;
+      adprice.className = "AdPrice";
+      host.appendChild(adprice);
+    });
+  }
+
+  createClearButton(host: HTMLElement){
     const btn = document.createElement("button");
     btn.innerHTML = "Naruci";
     btn.className = "btnOrder";
-    container.appendChild(btn);
+    host.appendChild(btn);
 
     fromEvent(btn, "click").subscribe(() => this.clearOrder());
   }
+
   clearOrder() {
     this.food = null;
     this.ads = [];

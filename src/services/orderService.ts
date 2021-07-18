@@ -22,12 +22,12 @@ export class OrderService {
     this.drinkService = new DrinkService();
   }
 
-  createFoodObservable(input: HTMLInputElement) {
-    this.foodObservable = this.foodService.foodInputObs(input);
+  createFoodObservable(btn: HTMLButtonElement) {
+    this.foodObservable = this.foodService.handleButtonClick(btn);
   }
 
-  createDrinkObservable(input: HTMLInputElement) {
-    this.drinkObservable = this.drinkService.drinkInputObs(input);
+  createDrinkObservable(btn: HTMLButtonElement) {
+    this.drinkObservable = this.drinkService.handleButtonClick(btn);
   }
 
   createAdObservable(btn: HTMLButtonElement) {

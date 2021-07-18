@@ -19,23 +19,29 @@ export class FoodView {
     div.appendChild(label);
 
     this.typesOfFood.forEach((type, index) => {
-      option = document.createElement("div");
-      option.innerHTML = `${index + 1}: ${type}`;
-      option.className = "FoodType";
-      div.appendChild(option);
+      const adLabel = document.createElement("label");
+      adLabel.className = "adLabel";
+      adLabel.innerHTML = `${index + 1}: ${type}`;
+      adLabel.htmlFor = `${index}`;
+      div.appendChild(adLabel);
+
+      const adCheck = document.createElement("input");
+      adCheck.type = "radio";
+      adCheck.name = "Food";
+      adCheck.className = "FoodType";
+      adCheck.value = `${type}`;
+      adCheck.id = `${index}`;
+      div.appendChild(adCheck);
+
+      div.appendChild(document.createElement("br"));
     });
 
-    const inputLbl = document.createElement("label");
-    inputLbl.className = "FoodInputLbl";
-    inputLbl.innerHTML = "Unesite hranu koju zelite da narucite:";
-    div.appendChild(inputLbl);
-
-    const input = document.createElement("input");
-    input.className = "FoodInput";
-    div.appendChild(input);
+    const btn = document.createElement("button");
+    btn.innerHTML = "Ubaci hranu u narudzbinu";
+    div.appendChild(btn);
 
     host.appendChild(div);
 
-    order.createFoodObservable(input);
+    order.createFoodObservable(btn);
   }
 }

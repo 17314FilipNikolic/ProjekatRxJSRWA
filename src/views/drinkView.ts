@@ -20,25 +20,29 @@ export class DrinkView {
     div.appendChild(label);
 
     this.typesOfDrink.forEach((type, index) => {
-      const drinkLabel = document.createElement("label");
-      drinkLabel.className = "adLabel";
-      drinkLabel.innerHTML = `${index + 1}: ${type}`;
-      div.appendChild(drinkLabel);
+      const adLabel = document.createElement("label");
+      adLabel.className = "adLabel";
+      adLabel.innerHTML = `${index + 1}: ${type}`;
+      adLabel.htmlFor = `${index}`;
+      div.appendChild(adLabel);
+
+      const adCheck = document.createElement("input");
+      adCheck.type = "radio";
+      adCheck.name = "Drink";
+      adCheck.className = "DrinkType";
+      adCheck.value = `${type}`;
+      adCheck.id = `${index}`;
+      div.appendChild(adCheck);
 
       div.appendChild(document.createElement("br"));
     });
 
-    const inputLbl = document.createElement("label");
-    inputLbl.className = "DrinkInputLbl";
-    inputLbl.innerHTML = "Unesite pice koje zelite da narucite:";
-    div.appendChild(inputLbl);
-
-    const input = document.createElement("input");
-    input.className = "DrinkInput";
-    div.appendChild(input);
+    const btn = document.createElement("button");
+    btn.innerHTML = "Ubaci hranu u narudzbinu";
+    div.appendChild(btn);
 
     host.appendChild(div);
 
-    order.createDrinkObservable(input);
+    order.createDrinkObservable(btn);
   }
 }
