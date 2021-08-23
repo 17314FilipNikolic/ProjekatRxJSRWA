@@ -5,7 +5,7 @@ body{
 .FoodContainer {
   display: block;
   float: left;
-  width: 33%;
+  width: 20%;
   height: 100px;
   margin-top: 10px;
   margin-left: 10px;
@@ -14,7 +14,7 @@ body{
 .DrinkContainer {
   display: block;
   float: left;
-  width: 33%;
+  width: 20%;
   height: 100px;
   margin-top: 10px;
   margin-left: 10px;
@@ -23,15 +23,37 @@ body{
 .AdContainer {
   display: block;
   float: left;
-  width: 30%;
+  width: 20%;
   height: 100px;
   margin-top: 10px;
   margin-left: 10px;
 }
 
+.LocationContainer {
+  display: block;
+  float: left;
+  width: 20%;
+  height: 100px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.LocationInput {
+  display: block;
+  width: auto;
+  max-width: 80px;
+  flex: 1;
+}
+
+.btnRemove {
+  margin-left: 5px;
+}
+
 .Order {
   display: block;
   float: left;
+  width: 20%;
   margin-top: 10px;
   margin-right: 10px;
+  height: fit-content;
 }

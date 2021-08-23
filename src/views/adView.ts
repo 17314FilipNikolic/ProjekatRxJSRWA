@@ -43,6 +43,7 @@ export class AdView {
 
     const btnRemove = document.createElement("button");
     btnRemove.innerHTML = "Izbaci priloge";
+    btnRemove.className = "btnRemove";
     div.appendChild(btnRemove);
 
     order.createAdRemoveObservable(btnRemove);

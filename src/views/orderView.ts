@@ -159,6 +159,8 @@ export class OrderView {
 
   clearOrder() {
     this.food = null;
+    this.drink = null;
+    this.location = null;
     this.ads = [];
     this.priceAd = this.priceFood = this.priceDrink = 0;
   }

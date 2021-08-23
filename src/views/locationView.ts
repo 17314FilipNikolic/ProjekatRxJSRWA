@@ -19,6 +19,7 @@ export class LocationView {
 
       const input = document.createElement("input");
       input.className = "LocationInput";
+      input.type = "text";
       div.appendChild(input);
 
       order.createLocationObservable(input);
