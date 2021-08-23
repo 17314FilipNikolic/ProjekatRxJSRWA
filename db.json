@@ -68,5 +68,27 @@
       "type": "voda",
       "price": 30
     }
+  ],
+  "location": [
+    {
+      "id": 1,
+      "location": "Mokranjceva",
+      "time": "15 minuta"
+    },
+    {
+      "id": 2,
+      "location": "Knjazevacka",
+      "time": "12 minuta"
+    },
+    {
+      "id": 3,
+      "location": "Bulevar Nemanjica",
+      "time": "10 minuta"
+    },
+    {
+      "id": 4,
+      "location": "Zetska",
+      "time": "5 minuta"
+    }
   ]
 }
