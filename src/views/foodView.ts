@@ -10,7 +10,6 @@ export class FoodView {
   }
 
   createFoodCheckElement(host: HTMLElement, order: OrderService) {
-    let option = null;
     let div = document.createElement("div");
     div.className = "FoodContainer";
     const label = document.createElement("div");

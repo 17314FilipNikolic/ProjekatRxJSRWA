@@ -2,11 +2,13 @@ import { fromEvent } from "rxjs";
 import { Ad } from "../models/ad";
 import { Drink } from "../models/drink";
 import { Food } from "../models/food";
+import { Location } from "../models/location";
 
 export class OrderView {
   food: Food;
   drink: Drink;
   ads: Ad[] = [];
+  location: Location;
   priceFood: number;
   priceAd: number;
   priceDrink: number;
@@ -22,6 +24,9 @@ export class OrderView {
   setDrinkOrder(drink: Drink) {
     this.drink = drink;
     this.setPrice();
+  }
+  setLocation(location: Location) {
+    this.location = location;
   }
   setAdOrder(ad: Ad) {
     this.ads = this.ads.filter((oldAd) => oldAd.id !== ad.id);
@@ -83,6 +88,8 @@ export class OrderView {
     price.className = "Price";
     container.appendChild(price);
 
+    this.location && this.showLocation(container);
+
     this.createClearButton(container);
   }
 
@@ -127,6 +134,18 @@ export class OrderView {
       adprice.className = "AdPrice";
       host.appendChild(adprice);
     });
+  }
+
+  showLocation(host: HTMLElement){
+    const loc  = document.createElement("div");
+    loc.innerHTML = `Vasa lokacija je: ${this.location.location}`;
+    loc.className = "Location";
+    host.appendChild(loc);
+
+    const loctime = document.createElement("div");
+    loctime.innerHTML = `Ocekivano vreme za stizanje narudzbine: ${this.location.time}`;
+    loctime.className = "LocationTime";
+    host.appendChild(loctime);
   }
 
   createClearButton(host: HTMLElement){
